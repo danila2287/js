@@ -15,7 +15,7 @@ userName.greet("Bob");
 const product = {
   name: "Ноутбук",
   price: 10000,
-  discount:10,
+  discount: 10,
   characteristics: {
     brand: "MSI",
     processor: "intel core i5",
@@ -33,3 +33,15 @@ const checkDiscount = (product) => {
 };
 
 console.log(checkDiscount(product));
+
+//-----------------------------------------------------вложенные циклы for in для вывода полей
+
+for (let keyProduct in product) {
+  if (keyProduct == "characteristics") {
+    for (let checkProduct in product.characteristics) {
+      console.log(`${checkProduct}`, product.characteristics[checkProduct]);
+    }
+  } else {
+    console.log(`${keyProduct}`, product[keyProduct]);
+  }
+}
