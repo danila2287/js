@@ -1,5 +1,5 @@
-// Запись обычной функции
-
+// Function Declaration
+// Создается до начала выполнения скрипта, можно вызывать перед объявлением
 function sumAndAl(num1, num2) {
   const sum = num1 + num2;
   return sum;
@@ -21,15 +21,17 @@ function greet(name) {
   return `Привет, ${name}`;
 }
 
-// Запись функции в константу
+// Function Expression
+// Cоздается только тогда, когда доходит поток кода, можно вызывать только после объявления
 
-// const greet = function (name) {
-//   return `Привет, ${name}`;
-// };
+const greet = function (name) {
+  return `Привет, ${name}`;
+};
 
-// console.log(greet("Боб"));
+console.log(greet("Боб"));
 
 // Стрелочные функции
+// Не имеют своего контекста
 
 const factorial = (num)=> {
   let factr = 1;
@@ -41,11 +43,10 @@ const factorial = (num)=> {
 
 console.log(factorial(5));
 
-// const isEven= (num)=>{
-//     return num%2==0
-// }
-
-// console.log(isEven(6))
+const isEven= (num)=>{
+    return num%2==0
+}
+console.log(isEven(6))
 
 // самовызывающаяся функция вызывается на месте
 

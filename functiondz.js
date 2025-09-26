@@ -34,7 +34,7 @@ function getTimeOfDay(day) {
       return "Некорректное время";
   }
 }
-console.log(getTimeOfDay(19));
+// console.log(getTimeOfDay(19));
 
 // Задача4
 
