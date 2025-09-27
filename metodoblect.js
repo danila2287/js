@@ -12,11 +12,16 @@ userName.greet("Bob");
 
 //----------------------------------------------------------------------
 
+const discount = {
+  percent:10,
+  day: 25
+};
+const characteristics = "characteristics";
+
 const product = {
   name: "Ноутбук",
   price: 10000,
-  discount: 10,
-  characteristics: {
+  [characteristics]: {
     brand: "MSI",
     processor: "intel core i5",
   },
@@ -34,7 +39,7 @@ const checkDiscount = (product) => {
 
 console.log(checkDiscount(product));
 
-//-----------------------------------------------------вложенные циклы for in для вывода полей
+//------------вложенные циклы for in для вывода полей
 
 for (let keyProduct in product) {
   if (keyProduct == "characteristics") {
@@ -45,3 +50,23 @@ for (let keyProduct in product) {
     console.log(`${keyProduct}`, product[keyProduct]);
   }
 }
+
+//=======Деструктуризация и spread;
+
+// как бы записываем const name=product.name
+
+const { name, price } = product;
+console.log(name, price);
+
+// переименование name только ключ меняется;
+
+const { name: productName} = product;
+console.log(name);
+
+
+// spread не делает глубокое копирование объектов, только поверхностное
+
+const product2={...product, ...discount};
+product2.name="Планшет";
+console.log(product2)
+console.log(product)
