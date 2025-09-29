@@ -1,4 +1,4 @@
-"use stict";
+"use strict";
 // Массивы
 const numbers = [
   "test",
