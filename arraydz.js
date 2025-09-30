@@ -59,9 +59,9 @@ console.log(arrayAdmins);
 // Задание 4
 
 const array = [27, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 15];
-const result = [];
 
 function first(arr, n) {
+  const result = [];
   if (n == 0) {
     return result;
   } else if (n == undefined) {
