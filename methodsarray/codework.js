@@ -267,11 +267,11 @@ console.log(countSmileys([":)", ":(", ":D", ":O", ":;"]));
 function solution(roman) {
   const arr = roman.split("");
   let total = 0;
-  
+
   for (let i = 0; i < arr.length; i++) {
     if (arr[i] === "C" && arr[i + 1] === "M") {
       total += 900;
-      i++; // ✅ пропускаем следующий символ
+      i++; //
     } else if (arr[i] === "C" && arr[i + 1] === "D") {
       total += 400;
       i++;
@@ -306,4 +306,81 @@ function solution(roman) {
   return total;
 }
 
-console.log(solution("MDCLXVI")); // 1666
+console.log(solution("MDCLXVI"));
+
+//задача 11
+function sortArray(arrs) {
+  const arrChetNum = [];
+  const arrChetInd = [];
+  const newArr = arrs.map((num, index) => {
+    if (num % 2 == 0) {
+      arrChetNum.push(num);
+      arrChetInd.push(index);
+    }
+  });
+  let arrSort = arrs
+    .sort((a, b) => {
+      return a - b;
+    })
+    .filter((num) => {
+      return num % 2 != 0;
+    });
+  for (let i = 0; i < arrChetNum.length; i++) {
+    arrSort.splice(arrChetInd[i], 0, arrChetNum[i]);
+  }
+  return arrSort;
+}
+console.log(sortArray([9, 8, 7, 6, 5, 4, 3, 2, 1, 0]));
+
+//задача12
+
+function moveZeros(arr) {
+  let count = 0;
+  arr.forEach((element) => {
+    if (element === 0) {
+      count++;
+    }
+  });
+  const newArr = arr.filter((num) => {
+    return num !== 0;
+  });
+  let result = newArr;
+  for (let i = 0; i < count; i++) {
+    result.push(0);
+  }
+  return result;
+}
+console.log(moveZeros([false, 1, 0, 1, 2, 0, 1, 3, "a"]));
+//Задача 13
+//Постройте башню в форме пирамиды в виде массива/списка
+//  строк с заданным положительным целым числом .
+//  Многоэтажный дом представлен с персонажем.number of floors"*"
+//Например, башня с этажами выглядит так:
+function towerBuilder(nFloors) {
+  let spruce = [];
+  let str = "";
+  let maxWidth = 2 * nFloors - 1;
+  // Метод repeat() создает новую строку, повторяя исходную строку указанное количество раз.
+  for (let i = 0; i < nFloors; i++) {
+    str = "*".repeat(2 * i + 1);
+    let spaces = " ".repeat((maxWidth - str.length) / 2);
+    spruce.push(spaces + str + spaces);
+  }
+  return spruce;
+}
+console.log(towerBuilder(10));
+// задача 14
+function findUniq(arr) {
+  // Проверяем первые три элемента чтобы найти повторяющийся
+  if (arr[0] === arr[1]) {
+    // arr[0] и arr[1] одинаковые, ищем элемент который от них отличается
+    for (let i = 2; i < arr.length; i++) {
+      if (arr[i] !== arr[0]) return arr[i];
+    }
+  } else {
+    // arr[0] и arr[1] разные, уникальный один из них
+    // Проверяем какой из них повторяется с arr[2]
+    return arr[0] === arr[2] ? arr[1] : arr[0];
+  }
+}
+
