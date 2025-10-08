@@ -384,3 +384,155 @@ function findUniq(arr) {
   }
 }
 
+// задача 15
+// класс RomanNumerals Вызываются напрямую: RomanNumerals.toRoman(5)
+class RomanNumerals {
+  static toRoman(num) {
+    const arrStr = String(num).split("");
+    const numArray = arrStr.map((str) => Number(str));
+    let sum = [];
+    let zain = 1;
+    for (let i = numArray.length - 1; i >= 0; i--) {
+      sum.push(numArray[i] * zain);
+      zain *= 10;
+    }
+    const arrResult = sum.reverse();
+    let res = [];
+    const newArr = arrResult.map((num) => {
+      const numStr = num.toString();
+      const firstDigit = parseInt(numStr[0]);
+
+      if (firstDigit >= 6 && firstDigit <= 8) {
+        const zerosCount = numStr.length - 1;
+        const base = 5 * Math.pow(10, zerosCount);
+        const add = (firstDigit - 5) * Math.pow(10, zerosCount);
+
+        if (base === 2) {
+          res.push(1);
+          res.push(1);
+        } else if (base === 3) {
+          res.push(1);
+          res.push(1);
+          res.push(1);
+        } else {
+          res.push(base);
+        }
+
+        if (add === 2) {
+          res.push(1);
+          res.push(1);
+        } else if (add === 3) {
+          res.push(1);
+          res.push(1);
+          res.push(1);
+        } else {
+          res.push(add);
+        }
+      } else if (firstDigit === 3) {
+        const part = num / 3;
+        res.push(part);
+        res.push(part);
+        res.push(part);
+      } else if (firstDigit === 2) {
+        const part = num / 2;
+        res.push(part);
+        res.push(part);
+      } else {
+        res.push(num);
+      }
+    });
+    let strRes = "";
+    for (let j = 0; j < res.length; j++) {
+      if (res[j] == 1000) strRes += "M";
+      else if (res[j] == 900) strRes += "CM";
+      else if (res[j] == 800) strRes += "DCCC";
+      else if (res[j] == 700) strRes += "DCC";
+      else if (res[j] == 600) strRes += "DC";
+      else if (res[j] == 500) strRes += "D";
+      else if (res[j] == 400) strRes += "CD";
+      else if (res[j] == 300) strRes += "CCC";
+      else if (res[j] == 200) strRes += "CC";
+      else if (res[j] == 100) strRes += "C";
+      else if (res[j] == 90) strRes += "XC";
+      else if (res[j] == 80) strRes += "LXXX";
+      else if (res[j] == 70) strRes += "LXX";
+      else if (res[j] == 60) strRes += "LX";
+      else if (res[j] == 50) strRes += "L";
+      else if (res[j] == 40) strRes += "XL";
+      else if (res[j] == 30) strRes += "XXX";
+      else if (res[j] == 20) strRes += "XX";
+      else if (res[j] == 10) strRes += "X";
+      else if (res[j] == 9) strRes += "IX";
+      else if (res[j] == 8) strRes += "VIII";
+      else if (res[j] == 7) strRes += "VII";
+      else if (res[j] == 6) strRes += "VI";
+      else if (res[j] == 5) strRes += "V";
+      else if (res[j] == 4) strRes += "IV";
+      else if (res[j] == 3) strRes += "III";
+      else if (res[j] == 2) strRes += "II";
+      else if (res[j] == 1) strRes += "I";
+    }
+    return strRes;
+  }
+
+  static fromRoman(roman) {
+    const arr = roman.split("");
+    let total = 0;
+
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i] === "C" && arr[i + 1] === "M") {
+        total += 900;
+        i++; //
+      } else if (arr[i] === "C" && arr[i + 1] === "D") {
+        total += 400;
+        i++;
+      } else if (arr[i] === "X" && arr[i + 1] === "C") {
+        total += 90;
+        i++;
+      } else if (arr[i] === "X" && arr[i + 1] === "L") {
+        total += 40;
+        i++;
+      } else if (arr[i] === "I" && arr[i + 1] === "X") {
+        total += 9;
+        i++;
+      } else if (arr[i] === "I" && arr[i + 1] === "V") {
+        total += 4;
+        i++;
+      } else if (arr[i] === "M") {
+        total += 1000;
+      } else if (arr[i] === "D") {
+        total += 500;
+      } else if (arr[i] === "C") {
+        total += 100;
+      } else if (arr[i] === "L") {
+        total += 50;
+      } else if (arr[i] === "X") {
+        total += 10;
+      } else if (arr[i] === "V") {
+        total += 5;
+      } else if (arr[i] === "I") {
+        total += 1;
+      }
+    }
+    return total;
+  }
+}
+console.log(RomanNumerals.toRoman(715));
+console.log(RomanNumerals.fromRoman("DCCXV"));
+// +--------+-------+
+// | Symbol | Value |
+// +--------+-------+
+// |    M   |  1000 |
+// |   CM   |   900 |
+// |    D   |   500 |
+// |   CD   |   400 |
+// |    C   |   100 |
+// |   XC   |    90 |
+// |    L   |    50 |
+// |   XL   |    40 |
+// |    X   |    10 |
+// |   IX   |     9 |
+// |    V   |     5 |
+// |   IV   |     4 |
+// |    I   |     1 |
+// +--------+-------+
