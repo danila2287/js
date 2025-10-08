@@ -519,20 +519,24 @@ class RomanNumerals {
 }
 console.log(RomanNumerals.toRoman(715));
 console.log(RomanNumerals.fromRoman("DCCXV"));
-// +--------+-------+
-// | Symbol | Value |
-// +--------+-------+
-// |    M   |  1000 |
-// |   CM   |   900 |
-// |    D   |   500 |
-// |   CD   |   400 |
-// |    C   |   100 |
-// |   XC   |    90 |
-// |    L   |    50 |
-// |   XL   |    40 |
-// |    X   |    10 |
-// |   IX   |     9 |
-// |    V   |     5 |
-// |   IV   |     4 |
-// |    I   |     1 |
-// +--------+-------+
+
+//Переместите первую букву каждого слова в его конец,
+//  затем добавьте «ay» в конец слова. Знаки препинания оставьте нетронутыми.
+
+// задача 16
+function pigIt(str) {
+  const arrStr = str.split(" ");
+  let ouneArr = [];
+  let arrNotFirst = [];
+  let result = [];
+  arrStr.forEach((firstelement) => {
+    ouneArr.push(firstelement.split("").shift());
+    arrNotFirst.push(firstelement.slice(1));
+  });
+
+  let firstArr = arrNotFirst.map((str, index) => {
+    result.push(str + ouneArr[index] + "ay");
+  });
+  return result.join(" ");
+}
+console.log(pigIt("Pig latin is cool"));
