@@ -533,10 +533,11 @@ function pigIt(str) {
     ouneArr.push(firstelement.split("").shift());
     arrNotFirst.push(firstelement.slice(1));
   });
-
-  let firstArr = arrNotFirst.map((str, index) => {
-    result.push(str + ouneArr[index] + "ay");
-  });
+  for (let i = 0; i < arrNotFirst.length; i++) {
+    result.push(arrNotFirst[i] + ouneArr[i] + "ay");
+  }
   return result.join(" ");
 }
 console.log(pigIt("Pig latin is cool"));
+
+// задача 17
