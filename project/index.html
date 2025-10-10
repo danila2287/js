@@ -1,12 +1,53 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Todo</title>
-</head>
-<body>
-  
-  <script src="./main.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo</title>
+    <link rel="stylesheet" href="./main.css">
+  </head>
+  <body>
+    <h1>Список дел</h1>
+    <form class="form">
+      <input class="input" type="text" placeholder="Новая задача..." required />
+      <button  type="submit">Добавить</button>
+    </form>
+    <ul class="list">
+      <li class="item">
+        <span class="task">Задача 1</span>
+        <div class="wrapper-button">
+          <button class="made-button button">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              x="0px"
+              y="0px"
+              width="100"
+              height="100"
+              viewBox="0 0 32 32"
+            >
+              <path
+                d="M13.071,24.358c-0.497,0-0.962-0.246-1.242-0.658c-2.339-3.45-4.751-5.873-7.373-7.405 c-0.715-0.418-0.956-1.337-0.538-2.052c0.417-0.715,1.336-0.958,2.052-0.538c2.529,1.478,4.856,3.627,7.071,6.539 c4.261-6.008,9.283-10.838,14.952-14.375c0.705-0.438,1.628-0.225,2.066,0.479c0.438,0.703,0.225,1.628-0.479,2.066 c-5.935,3.702-10.925,8.697-15.258,15.27c-0.276,0.419-0.742,0.672-1.243,0.675C13.077,24.358,13.074,24.358,13.071,24.358z"
+              ></path>
+            </svg>
+          </button>
+          <button class="remove__task-button button">
+            <svg
+              width="48"
+              height="48"
+              viewBox="0 0 16 16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M4.11 2.697L2.698 4.11 6.586 8l-3.89 3.89 1.415 1.413L8 9.414l3.89 3.89 1.413-1.415L9.414 8l3.89-3.89-1.415-1.413L8 6.586l-3.89-3.89z"
+                fill="#000"
+              ></path>
+            </svg>
+          </button>
+        </div>
+      </li>
+    </ul>
+    <script src="./main.js"></script>
+  </body>
 </html>

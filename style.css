@@ -2,6 +2,23 @@
     color: green;
 }
 
-.box-red {
+.red {
     color: red;
+}
+
+.box {
+    /* display: none; */
+    overflow: hidden;
+    opacity: 0;
+    width: 200px;
+    height: 200px;
+    background-color: black;
+    transition:all 0.5s;
+
+}
+
+.visible {
+    overflow: visible;
+    /* display: block; */
+    opacity: 1;
 }
