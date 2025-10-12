@@ -57,3 +57,9 @@ box.insertAdjacentHTML("afterbegin",`<p>123</p>`);//дщбавляет html те
 
 // outerHTML тут мы перезаписываем вместк с классом бокс;
 console.log(box.innerHTML);
+
+
+// document.addEventListener("submit",(event)=>{
+  // event.preventDefault(); отменяет перезагрузку страницы
+  // event.stopPropagation();отменяет всплытие событий
+// })

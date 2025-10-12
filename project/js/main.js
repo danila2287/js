@@ -1,6 +1,4 @@
 "use strict";
-console.log(1);
-
 // Пример что мы должны получить на выходе
 // {
 //   id:1,
@@ -15,7 +13,7 @@ const todoKeys = {
 
 const todos = [];
 
-const errorTodoId = () => `Todo with id ${todoId} not found`;
+const errorTodoId = (todoId) => `Todo with id ${todoId} not found`;
 const getNewTodoId = (todos) => {
   return (
     todos.reduce((maxId, todo) => {
@@ -36,7 +34,7 @@ const createTodo = (todos, textInp) => {
     [todoKeys.is_completed]: false,
   };
   todos.push(object);
-  return todos;
+  return object;
 };
 
 // console.log(createTodo("Покормить кота"));
@@ -73,7 +71,7 @@ const deleteTodoById = (todos, todoId) => {
 
 const form = document.querySelector(".form");
 const input = document.querySelector(".input");
-const todo = document.querySelector(".todos");
+const todosContainer = document.querySelector(".todos");
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -86,14 +84,15 @@ form.addEventListener("submit", (event) => {
   input.value = "";
 });
 
-function createTodoElement(text) {
+function createTodoElement(todoObj) {
   const li = document.createElement("li");
   li.classList.add("todo");
-  todo.appendChild(li);
+  li.id = todoObj[todoKeys.id];
+  todosContainer.appendChild(li);
   li.insertAdjacentHTML(
     "afterbegin",
     `
-    <div class="todo-text">${text}</div>
+    <div class="todo-text">${todoObj[todoKeys.text]}</div>
           <div class="todo-actions">
             <button class="button-complete button">&#10004;</button>
             <button class="button-delete button">&#10006;</button>
@@ -103,41 +102,27 @@ function createTodoElement(text) {
 }
 
 function handleCreateTodo(todos, text) {
-  createTodo(todos, text);
-  createTodoElement(text);
+  const newTodos = createTodo(todos, text);
+  createTodoElement(newTodos);
 }
 
-const buttonComplete = document.querySelector(".button-complete");
-const buttonDelete = document.querySelector(".button-delete");
-
-buttonComplete.addEventListener("click", (event) => {
-  event.preventDefault();
-  const todoElement = event.target.closest(".todo");
-  const todoText = todoElement.querySelector(".todo-text").textContent;
-
-  completeTodo(todoText);
+const wrapperTodos = document.querySelector(".todos");
+wrapperTodos.addEventListener("click", ({target}) => {
+  // const target=event.target;=={target}
+  const todoElement = target.closest(".todo"); //closest ближайше лежащий элемент;
+  //  event.target - это элемент, на котором произошло событие
+  const todoId =Number(todoElement[todoKeys.id]);
+  if (!todoElement) {
+    return;
+  }
+  if (target.matches(".button-complete")) {
+    //classList.contains==matches
+    completeTodoById(todos, todoId);
+    todoElement.classList.toggle("completed"); //classList.toggle() - это метод, который добавляет класс,
+    //  если его нет, и удаляет, если он есть.
+  } else if (target.matches(".button-delete")) {
+    //contains - содеожание элемента
+    deleteTodoById(todos,todoId );
+    todoElement.remove();
+  }
 });
-
-function completeTodo(text) {
-  todos.forEach((element) => {
-    if (element[todoKeys.text] == text) {
-      completeTodoById(todos, element[todoKeys.id]);
-    }
-  });
-}
-
-buttonDelete.addEventListener("click", (event) => {
-  event.preventDefault();
-  const todoElement = event.target.closest(".todo");
-  const todoText = todoElement.querySelector(".todo-text").textContent;
-
-  removeTodo(todoText);
-});
-
-function removeTodo(text) {
-  todos.forEach((element) => {
-    if (element[todoKeys.text] == text) {
-      deleteTodoById(todos, element[todoKeys.id]);
-    }
-  });
-}
