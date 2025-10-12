@@ -10,8 +10,17 @@ const todoKeys = {
   text: "text",
   is_completed: "is_completed",
 };
+// ===========================================
+const getTodosFromLocalStorage = () => {
+  return JSON.parse(localStorage.getItem("todos"));
+};
 
-const todos = [];
+const setTodosToLocalStorage = (todos) => {
+  localStorage.setItem("todos", JSON.stringify(todos));
+};
+
+const todos = getTodosFromLocalStorage() || [];
+// ==========================================
 
 const errorTodoId = (todoId) => `Todo with id ${todoId} not found`;
 const getNewTodoId = (todos) => {
@@ -100,29 +109,48 @@ function createTodoElement(todoObj) {
     `
   );
 }
+// ===================================
+// код для вытаскивания из локал сторадже
+const renderTodos = (todos, container) => {
+  container.innerHTML = "";
+  todos.forEach((todo) => {
+    const todoElement = createTodoElement(todo);
+    // container.prepend(todoElement);
+  });
+};
 
+document.addEventListener("DOMContentLoaded", () => {
+  //DOMContentLoaded выполняет действия
+  //  после того как Отрисиутся весь DOM;
+  renderTodos(todos, todosContainer);
+});
+// =================================
 function handleCreateTodo(todos, text) {
   const newTodos = createTodo(todos, text);
+  setTodosToLocalStorage(todos);
   createTodoElement(newTodos);
 }
 
 const wrapperTodos = document.querySelector(".todos");
-wrapperTodos.addEventListener("click", ({target}) => {
+wrapperTodos.addEventListener("click", ({ target }) => {
   // const target=event.target;=={target}
   const todoElement = target.closest(".todo"); //closest ближайше лежащий элемент;
   //  event.target - это элемент, на котором произошло событие
-  const todoId =Number(todoElement[todoKeys.id]);
   if (!todoElement) {
     return;
   }
+  // const todoId = Number(todoElement[todoKeys.id]);
+  const todoId = Number(todoElement.id);
   if (target.matches(".button-complete")) {
     //classList.contains==matches
     completeTodoById(todos, todoId);
+    setTodosToLocalStorage(todos);
     todoElement.classList.toggle("completed"); //classList.toggle() - это метод, который добавляет класс,
     //  если его нет, и удаляет, если он есть.
   } else if (target.matches(".button-delete")) {
     //contains - содеожание элемента
-    deleteTodoById(todos,todoId );
+    deleteTodoById(todos, todoId);
+    setTodosToLocalStorage(todos);
     todoElement.remove();
   }
 });
